@@ -20,6 +20,7 @@ video_mimetype = [
     "video/x-m4v",
     "video/quicktime",
     "video/mpeg"
+    "video/ts"
 ]
 
 
