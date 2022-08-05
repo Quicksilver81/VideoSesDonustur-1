@@ -7,6 +7,7 @@ from functions.ffmpeg import encode, get_codec, get_thumbnail, get_duration, get
 from functions.progress import progress_for_pyrogram
 from pyrogram.errors import FloodWait, MessageNotModified, MessageIdInvalid
 from config import quee
+from encoder import Ubot
 
 
 async def on_task_complete():
@@ -93,8 +94,9 @@ async def handle_upload(new_file, message, msg, random):
 
     # Upload
     try:
-        video = await message.reply_video(
+        video = await Ubot.send_video(
             new_file,
+            chat_id=PRE_LOG,
             supports_streaming=True,
             caption=caption,
             thumb=thumb,
