@@ -30,6 +30,7 @@ if __name__ == '__main__':
     app.run()
    
     Ubot = pyrogram.Client(
+         name='UserBot',
          session_string=STRING_SESSION,
          api_id=APP_ID,
          api_hash=API_HASH
