@@ -7,7 +7,7 @@ from functions.ffmpeg import encode, get_codec, get_thumbnail, get_duration, get
 from functions.progress import progress_for_pyrogram
 from pyrogram.errors import FloodWait, MessageNotModified, MessageIdInvalid
 from config import quee
-from encoder import Ubot
+from encoder import userbot
 
 
 async def on_task_complete():
@@ -73,6 +73,7 @@ async def handle_upload(new_file, message, msg, random):
     # Variables
     c_time = time.time()
     filename = os.path.basename(new_file)
+    file_size = get_size(new_file)
     duration = get_duration(new_file)
     width, height = get_width_height(new_file)
     if os.path.exists(thumb_image_path):
@@ -93,29 +94,57 @@ async def handle_upload(new_file, message, msg, random):
         caption = caption_str
 
     # Upload
-    try:
-        video = await Ubot.send_video(
-            new_file,
-            chat_id=PRE_LOG,
-            supports_streaming=True,
-            caption=caption,
-            thumb=thumb,
-            duration=duration,
-            width=width,
-            height=height,
-            progress=progress_for_pyrogram,
-            progress_args=("`Yükleniyor...`", msg, c_time)
-        )
-        if not audio_codec:
-            await video.reply_text("`⚪ Bu videonun sesi yoktu ama yine de kodladım.\n\n#bilgilendirme`", quote=True)
-    except FloodWait as e:
-        print(f"Sleep of {e.value} required by FloodWait ...")
-        time.sleep(e.value)
-    except MessageNotModified:
-        pass
-    try:
-        shutil.rmtree(path)
-        if thumb_image_path is None:
+    if file_size > 
+        try:
+            video = await Ubot.send_video(
+                new_file,
+                chat_id=PRE_LOG,
+                supports_streaming=True,
+                caption=caption,
+                thumb=thumb,
+                duration=duration,
+                width=width,
+                height=height,
+                progress=progress_for_pyrogram,
+                progress_args=("`Yükleniyor...`", msg, c_time)
+            )
+            if not audio_codec:
+                await video.reply_text("`⚪ Bu videonun sesi yoktu ama yine de kodladım.\n\n#bilgilendirme`", quote=True)
+        except FloodWait as e:
+            print(f"Sleep of {e.value} required by FloodWait ...")
+            time.sleep(e.value)
+        except MessageNotModified:
+            pass
+        try:
+            shutil.rmtree(path)
+            if thumb_image_path is None:
             os.remove(thumb)
-    except:
-        pass
+        except:
+            pass
+    else:
+        try:
+            video = await bot.send_video(
+                new_file,
+                chat_id=chat_id,
+                supports_streaming=True,
+                caption=caption,
+                thumb=thumb,
+                duration=duration,
+                width=width,
+                height=height,
+                progress=progress_for_pyrogram,
+                progress_args=("`Yükleniyor...`", msg, c_time)
+            )
+            if not audio_codec:
+                await video.reply_text("`⚪ Bu videonun sesi yoktu ama yine de kodladım.\n\n#bilgilendirme`", quote=True)
+        except FloodWait as e:
+            print(f"Sleep of {e.value} required by FloodWait ...")
+            time.sleep(e.value)
+        except MessageNotModified:
+            pass
+        try:
+            shutil.rmtree(path)
+            if thumb_image_path is None:
+            os.remove(thumb)
+        except:
+            pass 
