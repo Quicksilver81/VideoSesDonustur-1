@@ -3,7 +3,7 @@ import time
 import shutil
 from config import DOWNLOAD_DIR
 from pyrogram.types import Message
-from functions.ffmpeg import encode, get_codec, get_thumbnail, get_duration, get_width_height
+from functions.ffmpeg import encode, get_codec, get_thumbnail, get_duration, get_width_height, get_size
 from functions.progress import progress_for_pyrogram
 from pyrogram.errors import FloodWait, MessageNotModified, MessageIdInvalid
 from config import quee
@@ -73,7 +73,7 @@ async def handle_upload(new_file, message, msg, random):
     # Variables
     c_time = time.time()
     filename = os.path.basename(new_file)
-    file_size = get_size(new_file)
+    size = get_size(new_file)
     duration = get_duration(new_file)
     width, height = get_width_height(new_file)
     if os.path.exists(thumb_image_path):
@@ -94,7 +94,7 @@ async def handle_upload(new_file, message, msg, random):
         caption = caption_str
 
     # Upload
-    if file_size > 2093796556:
+    if size > 2093796556:
         try:
             video = await Ubot.send_video(
                 new_file,
