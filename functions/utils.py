@@ -94,7 +94,7 @@ async def handle_upload(new_file, message, msg, random):
         caption = caption_str
 
     # Upload
-    if file_size > 
+    if file_size > 2093796556:
         try:
             video = await Ubot.send_video(
                 new_file,
@@ -108,6 +108,13 @@ async def handle_upload(new_file, message, msg, random):
                 progress=progress_for_pyrogram,
                 progress_args=("`Yükleniyor...`", msg, c_time)
             )
+            try:
+                await bot.copy_message(
+                    chat_id=chat_id, 
+                    from_chat_id=PRE_LOG, 
+                    message_id=video.id)
+            except Exception as f:
+                LOGGER.info(f)
             if not audio_codec:
                 await video.reply_text("`⚪ Bu videonun sesi yoktu ama yine de kodladım.\n\n#bilgilendirme`", quote=True)
         except FloodWait as e:
