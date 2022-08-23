@@ -20,6 +20,7 @@ quee = []
 
 APP_ID = int(environ.get("APP_ID"))
 API_HASH = environ.get("API_HASH")
+PRE_LOG = environ.get("PRE_LOG")
 BOT_TOKEN = environ.get("BOT_TOKEN")
 STRING_SESSION = environ.get("STRING_SESSION") 
 
