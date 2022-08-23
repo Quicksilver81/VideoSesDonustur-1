@@ -1,7 +1,7 @@
 import os
 import time
 import shutil
-from config import DOWNLOAD_DIR
+from config import DOWNLOAD_DIR, PRE_LOG
 from pyrogram.types import Message
 from functions.ffmpeg import encode, get_codec, get_thumbnail, get_duration, get_width_height, get_size
 from functions.progress import progress_for_pyrogram
