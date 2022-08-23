@@ -125,7 +125,7 @@ async def handle_upload(new_file, message, msg, random):
         try:
             shutil.rmtree(path)
             if thumb_image_path is None:
-            os.remove(thumb)
+                os.remove(thumb)
         except:
             pass
     else:
@@ -152,6 +152,6 @@ async def handle_upload(new_file, message, msg, random):
         try:
             shutil.rmtree(path)
             if thumb_image_path is None:
-            os.remove(thumb)
+                os.remove(thumb)
         except:
             pass 
