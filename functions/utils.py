@@ -96,7 +96,7 @@ async def handle_upload(new_file, message, msg, random):
     # Upload
     if size > 2093796556:
         try:
-            video = await Ubot.send_video(
+            video = await userbot.send_video(
                 new_file,
                 chat_id=PRE_LOG,
                 supports_streaming=True,
