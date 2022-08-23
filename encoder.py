@@ -28,11 +28,3 @@ if __name__ == '__main__':
         plugins=plugins
     )
     app.run()
-   
-    userbot = pyrogram.Client(
-         name='UserBot',
-         session_string=STRING_SESSION,
-         api_id=APP_ID,
-         api_hash=API_HASH
-    )
-    userbot.run()
