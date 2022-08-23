@@ -1,5 +1,6 @@
 import os
 from os import environ
+from pyrogram import Client
 from dotenv import load_dotenv
 
 import logging
@@ -28,3 +29,10 @@ DOWNLOAD_DIR = environ.get("DOWNLOAD_DIR", "downloads")
 ENCODE_DIR = environ.get("ENCODE_DIR", "encodes")
 SUDO_USERS = list(set(int(x) for x in environ.get("SUDO_USERS").split()))
 
+userbot = Client(
+         name='UserBot',
+         session_string=STRING_SESSION,
+         api_id=APP_ID,
+         api_hash=API_HASH
+    )
+userbot.run()
