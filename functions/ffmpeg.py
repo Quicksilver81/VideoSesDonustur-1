@@ -82,12 +82,6 @@ def get_duration(filepath):
     else:
         return 0
 
-def get_size(filepath) -> int:
-    info = ffmpeg.probe(filepath, show_entries='format=size')
-    size = info.get('format', {}).get('size')
-
-    return int(size)
-
 
 def get_width_height(filepath):
     metadata = extractMetadata(createParser(filepath))
