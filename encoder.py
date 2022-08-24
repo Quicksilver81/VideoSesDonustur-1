@@ -21,7 +21,7 @@ if __name__ == '__main__':
     plugins = dict(root='plugins')
 
     app = pyrogram.Client(
-        name='Encoder',
+        name='sesbotubot',
         bot_token=BOT_TOKEN,
         api_id=APP_ID,
         api_hash=API_HASH,
