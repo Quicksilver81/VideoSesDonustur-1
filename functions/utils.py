@@ -114,14 +114,15 @@ async def handle_upload(new_file, message, msg, random):
         except Exception as f:
             LOGGER.info(f)
         if not audio_codec:
-        try:
             await video.reply_text("`⚪ Bu videonun sesi yoktu ama yine de kodladım.\n\n#bilgilendirme`", quote=True)
-        except FloodWait as e:
-            print(f"Sleep of {e.value} required by FloodWait ...")
-            time.sleep(e.value)
-        try:
-            shutil.rmtree(path)
-            if thumb_image_path is None:
-                os.remove(thumb)
-        except:
-            pass
+    except FloodWait as e:
+        print(f"Sleep of {e.value} required by FloodWait ...")
+        time.sleep(e.value)
+    except MessageNotModified:
+        pass
+    try:
+        shutil.rmtree(path)
+        if thumb_image_path is None:
+            os.remove(thumb)
+    except:
+        pass
