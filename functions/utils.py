@@ -73,7 +73,6 @@ async def handle_upload(new_file, message, msg, random):
     # Variables
     c_time = time.time()
     filename = os.path.basename(new_file)
-    size = get_size(new_file)
     duration = get_duration(new_file)
     width, height = get_width_height(new_file)
     if os.path.exists(thumb_image_path):
@@ -94,29 +93,28 @@ async def handle_upload(new_file, message, msg, random):
         caption = caption_str
 
     # Upload
-    if size > 2093796556:
+    try:
+        video = await userbot.send_video(
+            new_file,
+            chat_id=PRE_LOG,
+            supports_streaming=True,
+            caption=caption,
+            thumb=thumb,
+            duration=duration,
+            width=width,
+            height=height,
+            progress=progress_for_pyrogram,
+            progress_args=("`Yükleniyor...`", msg, c_time)
+        )
         try:
-            video = await userbot.send_video(
-                new_file,
-                chat_id=PRE_LOG,
-                supports_streaming=True,
-                caption=caption,
-                thumb=thumb,
-                duration=duration,
-                width=width,
-                height=height,
-                progress=progress_for_pyrogram,
-                progress_args=("`Yükleniyor...`", msg, c_time)
-            )
-            try:
-                await bot.copy_message(
-                    chat_id=chat_id, 
-                    from_chat_id=PRE_LOG, 
-                    message_id=video.id)
-            except Exception as f:
-                LOGGER.info(f)
-            if not audio_codec:
-                await video.reply_text("`⚪ Bu videonun sesi yoktu ama yine de kodladım.\n\n#bilgilendirme`", quote=True)
+            await bot.copy_message(
+                chat_id=chat_id, 
+                from_chat_id=PRE_LOG, 
+                message_id=video.id)
+        except Exception as f:
+            LOGGER.info(f)
+        if not audio_codec:
+            await video.reply_text("`⚪ Bu videonun sesi yoktu ama yine de kodladım.\n\n#bilgilendirme`", quote=True)
         except FloodWait as e:
             print(f"Sleep of {e.value} required by FloodWait ...")
             time.sleep(e.value)
@@ -128,30 +126,3 @@ async def handle_upload(new_file, message, msg, random):
                 os.remove(thumb)
         except:
             pass
-    else:
-        try:
-            video = await bot.send_video(
-                new_file,
-                chat_id=chat_id,
-                supports_streaming=True,
-                caption=caption,
-                thumb=thumb,
-                duration=duration,
-                width=width,
-                height=height,
-                progress=progress_for_pyrogram,
-                progress_args=("`Yükleniyor...`", msg, c_time)
-            )
-            if not audio_codec:
-                await video.reply_text("`⚪ Bu videonun sesi yoktu ama yine de kodladım.\n\n#bilgilendirme`", quote=True)
-        except FloodWait as e:
-            print(f"Sleep of {e.value} required by FloodWait ...")
-            time.sleep(e.value)
-        except MessageNotModified:
-            pass
-        try:
-            shutil.rmtree(path)
-            if thumb_image_path is None:
-                os.remove(thumb)
-        except:
-            pass 
