@@ -35,4 +35,4 @@ userbot = Client(
      api_id=APP_ID,
      api_hash=API_HASH
     )
-userbot.run()
+userbot.start()
